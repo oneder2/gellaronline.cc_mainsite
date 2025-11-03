@@ -1,0 +1,251 @@
+/**
+ * 命令组件公共样式
+ * 
+ * 提供所有命令组件共享的样式类
+ * 减少重复代码，保持一致性
+ * 
+ * 使用方法：
+ * 1. 在 main.js 中导入此文件
+ * 2. 在命令组件中使用这些类名
+ * 
+ * @file commands.css
+ */
+
+/* ========================================
+   通用命令区域样式
+   ======================================== */
+
+/**
+ * 命令区域容器
+ * 所有命令组件的根元素样式
+ */
+.command-section {
+  padding: 0.5rem 0;
+}
+
+/**
+ * 区域标题
+ * 用于命令输出的主标题
+ * 终端风格：简洁、无过多装饰
+ */
+.section-title {
+  color: var(--text-primary);
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/**
+ * 标题图标
+ * SVG 图标样式
+ */
+.title-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--text-primary);
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+
+/* ========================================
+   内容块样式
+   ======================================== */
+
+/**
+ * 信息块
+ * 用于包含多行信息的容器
+ * 终端风格：简洁，无背景色
+ */
+.info-block {
+  margin: 0.8rem 0;
+  padding: 0;
+}
+
+/**
+ * 信息行
+ * 单行信息显示
+ */
+.info-line {
+  color: var(--text-secondary);
+  margin: 0.4rem 0;
+  line-height: 1.6;
+}
+
+/**
+ * 标签
+ * 用于信息行的标签部分
+ */
+.label {
+  color: var(--text-primary);
+  font-weight: normal;
+  margin-right: 0.5rem;
+  display: inline;
+}
+
+/* ========================================
+   列表和项目样式
+   ======================================== */
+
+/**
+ * 项目列表项
+ * 用于项目、联系方式等列表项
+ * 终端风格：简洁，无背景和边框
+ */
+.item {
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
+/**
+ * 项目标题
+ */
+.item-title {
+  color: var(--text-primary);
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+  font-weight: normal;
+}
+
+/**
+ * 项目描述
+ */
+.item-desc {
+  color: var(--text-secondary);
+  margin: 0.3rem 0;
+  line-height: 1.6;
+  padding-left: 0;
+}
+
+/* ========================================
+   提示和注释样式
+   ======================================== */
+
+/**
+ * 提示信息
+ * 用于显示帮助提示
+ * 终端风格：简洁
+ */
+.tip {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  padding: 0;
+}
+
+/**
+ * 注释信息
+ * 用于显示警告或注意事项
+ */
+.note {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background: rgba(255, 136, 0, 0.1);
+  border-left: 3px solid rgba(255, 136, 0, 0.5);
+  border-radius: 4px;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  line-height: 1.6;
+}
+
+/**
+ * 图标（用于提示和注释）
+ */
+.icon {
+  width: 1rem;
+  height: 1rem;
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+
+.tip .icon {
+  color: var(--accent);
+}
+
+.note .icon {
+  color: rgba(255, 136, 0, 0.8);
+  margin-top: 0.2rem;
+}
+
+/* ========================================
+   引用和特殊文本样式
+   ======================================== */
+
+/**
+ * 引用文字
+ * 终端风格：简洁
+ */
+.quote {
+  color: var(--text-muted);
+  margin-top: 1rem;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/**
+ * 引号标记
+ */
+.quote-mark {
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: normal;
+  opacity: 0.7;
+}
+
+/* ========================================
+   响应式设计
+   ======================================== */
+
+/**
+ * 移动设备优化
+ */
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1rem;
+  }
+  
+  .info-block,
+  .item {
+    padding: 0.8rem;
+  }
+  
+  .info-line,
+  .item-desc {
+    font-size: 0.9rem;
+  }
+  
+  .label {
+    min-width: 3.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .tip,
+  .note {
+    font-size: 0.85rem;
+    padding: 0.6rem;
+  }
+  
+  .quote {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
+}
+
+/**
+ * 平板设备优化
+ */
+@media (max-width: 768px) and (min-width: 481px) {
+  .section-title {
+    font-size: 1.05rem;
+  }
+  
+  .item-desc {
+    font-size: 0.95rem;
+  }
+}
+
