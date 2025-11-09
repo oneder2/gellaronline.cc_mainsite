@@ -24,6 +24,8 @@
       :key="index"
       :command="item.command"
       :output="item.output"
+      :sub-command="item.subCommand"
+      :args="item.args"
     />
 
     <!-- 输入区域（通过 slot 插入） -->
@@ -94,9 +96,23 @@ watch(() => props.history.length, () => {
 
 /**
  * 点击终端主体时，聚焦到输入框
+ *
+ * 注意：不自动滚动到底部，允许用户在浏览历史内容时点击复制
+ * 只有在执行命令时才会自动滚动（通过 watch 监听 history 变化）
  */
-const handleBodyClick = () => {
+const handleBodyClick = (event) => {
+  // 记录当前滚动位置
+  const currentScrollTop = bodyRef.value?.scrollTop || 0
+
+  // 聚焦输入框
   emit('focus-input')
+
+  // 在下一帧恢复滚动位置，防止浏览器自动滚动到输入框
+  nextTick(() => {
+    if (bodyRef.value) {
+      bodyRef.value.scrollTop = currentScrollTop
+    }
+  })
 }
 </script>
 

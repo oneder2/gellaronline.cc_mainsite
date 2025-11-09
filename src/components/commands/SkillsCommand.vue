@@ -34,10 +34,10 @@
       <div class="skill-tags">
         <span
           v-for="tool in skillsData.tools"
-          :key="tool.name"
+          :key="tool"
           class="tag"
         >
-          {{ tool.name }}
+          {{ tool }}
         </span>
       </div>
     </div>

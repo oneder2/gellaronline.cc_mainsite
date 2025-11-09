@@ -58,17 +58,17 @@ export function useTerminal() {
   
   /**
    * 执行命令
-   * 
+   *
    * @param {Object} options - 执行选项
    * @param {string} options.command - 要执行的命令
    * @param {boolean} options.cancelled - 是否被取消（Ctrl+C）
    */
   const executeCommand = ({ command, cancelled = false }) => {
     const cmd = command.trim().toLowerCase()
-    
+
     // 空命令不处理
     if (!cmd) return
-    
+
     // 处理被取消的命令（Ctrl+C）
     if (cancelled) {
       history.value.push({
@@ -78,26 +78,34 @@ export function useTerminal() {
       currentCommand.value = ''
       return
     }
-    
+
     // 特殊命令：clear
     if (cmd === 'clear') {
       history.value = []
       currentCommand.value = ''
       return
     }
-    
+
     // 添加到命令历史
     addToHistory(cmd)
-    
+
+    // 解析命令和参数（支持子命令）
+    const parts = cmd.split(/\s+/)
+    const mainCommand = parts[0]
+    const subCommand = parts[1] || null
+    const args = parts.slice(2)
+
     // 查找并执行命令
-    const commandConfig = commandRegistry[cmd]
-    
+    const commandConfig = commandRegistry[mainCommand]
+
     if (commandConfig) {
       // 命令存在
       history.value.push({
         command: cmd,
-        output: commandConfig.execute ? commandConfig.execute() : '',
-        component: commandConfig.component
+        output: commandConfig.execute ? commandConfig.execute(subCommand, args) : '',
+        component: commandConfig.component,
+        subCommand: subCommand,
+        args: args
       })
     } else {
       // 命令不存在
@@ -106,10 +114,10 @@ export function useTerminal() {
         output: `<p class="error">命令未找到: ${cmd}</p><p class="hint">输入 'help' 查看可用命令</p>`
       })
     }
-    
+
     // 清空当前输入
     currentCommand.value = ''
-    
+
     // 重置历史索引
     resetHistoryIndex()
   }

@@ -23,6 +23,9 @@ import ProjectsCommand from '@/components/commands/ProjectsCommand.vue'
 import ContactCommand from '@/components/commands/ContactCommand.vue'
 import VibeCommand from '@/components/commands/VibeCommand.vue'
 import SecretCommand from '@/components/commands/SecretCommand.vue'
+import BasketballCommand from '@/components/commands/BasketballCommand.vue'
+import BasketballStatsCommand from '@/components/commands/BasketballStatsCommand.vue'
+import { useBasketballStore } from '@/stores/basketball'
 
 /**
  * 命令组件映射
@@ -35,7 +38,9 @@ export const commandComponents = {
   projects: ProjectsCommand,
   contact: ContactCommand,
   vibe: VibeCommand,
-  secret: SecretCommand
+  secret: SecretCommand,
+  basketball: BasketballCommand,
+  'basketball-stats': BasketballStatsCommand
 }
 
 /**
@@ -76,6 +81,57 @@ export const commandRegistry = {
   secret: {
     description: '隐藏命令',
     component: 'secret'
+  },
+
+  basketball: {
+    description: '打篮球小游戏',
+    component: 'basketball',
+    /**
+     * 执行篮球游戏命令
+     * @param {string} subCommand - 子命令（shoot, dunk, pass, stats, reset）
+     * @param {Array} args - 额外参数
+     * @returns {string} 命令执行结果的HTML字符串
+     */
+    execute: (subCommand, args) => {
+      const store = useBasketballStore()
+
+      // 如果没有子命令，显示游戏界面
+      if (!subCommand) {
+        return ''
+      }
+
+      // 处理子命令
+      switch (subCommand) {
+        case 'shoot': {
+          const result = store.shoot()
+          return `<p class="${result.success ? 'success' : 'error'}">${result.message}</p>`
+        }
+
+        case 'dunk': {
+          const result = store.dunk()
+          return `<p class="${result.success ? 'success' : 'error'}">${result.message}</p>`
+        }
+
+        case 'pass': {
+          const result = store.pass()
+          return `<p class="${result.success ? 'success' : 'error'}">${result.message}</p>`
+        }
+
+        case 'stats': {
+          // 使用stats组件显示统计
+          return ''
+        }
+
+        case 'reset': {
+          store.resetGame()
+          return '<p class="success">[+] 游戏已重置！输入 basketball shoot 开始新游戏。</p>'
+        }
+
+        default: {
+          return `<p class="error">未知的子命令: ${subCommand}</p><p class="hint">可用命令: shoot, dunk, pass, stats, reset</p>`
+        }
+      }
+    }
   }
 }
 

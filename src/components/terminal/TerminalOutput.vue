@@ -43,22 +43,59 @@ const props = defineProps({
     type: String,
     required: true
   },
-  
+
   /**
    * 命令输出（HTML 字符串）
    */
   output: {
     type: String,
     default: ''
+  },
+
+  /**
+   * 子命令（用于支持 basketball shoot 等）
+   */
+  subCommand: {
+    type: String,
+    default: null
+  },
+
+  /**
+   * 命令参数
+   */
+  args: {
+    type: Array,
+    default: () => []
   }
 })
 
 /**
  * 计算输出组件
  * 如果命令有对应的组件，使用组件渲染；否则使用 HTML
+ *
+ * 特殊处理：
+ * - basketball stats -> 使用 basketball-stats 组件
+ * - basketball 其他子命令 -> 使用 HTML 输出
+ * - basketball 无子命令 -> 使用 basketball 组件
  */
 const outputComponent = computed(() => {
-  return commandComponents[props.command] || null
+  const mainCommand = props.command.split(/\s+/)[0]
+
+  // 特殊处理 basketball 命令
+  if (mainCommand === 'basketball') {
+    if (props.subCommand === 'stats') {
+      return commandComponents['basketball-stats']
+    } else if (props.subCommand && props.subCommand !== 'stats') {
+      // shoot, dunk, pass, reset 等使用 HTML 输出
+      return null
+    } else {
+      // 无子命令，显示游戏界面
+      return commandComponents['basketball']
+    }
+  }
+
+  // 其他命令正常处理
+  return commandComponents[mainCommand] || null
 })
 </script>
 

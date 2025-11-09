@@ -46,7 +46,7 @@
     
     <p class="quote">
       <span class="quote-mark">"</span>
-      回头审视过去的盲信，低头打造未来的锚定；做一个历史外的见证者，以及历史中基本无害的个人主义者
+      审视盲信，打造锚定；做一个见证者，以及基本无害的个人主义者
       <span class="quote-mark">"</span>
     </p>
   </div>

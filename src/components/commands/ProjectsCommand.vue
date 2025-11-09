@@ -110,16 +110,14 @@ const projects = [
 
 .project-item {
   margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: rgba(0, 255, 136, 0.05);
-  border-left: 3px solid var(--accent);
-  border-radius: 4px;
-  transition: all 0.3s ease;
+  padding: 0.5rem 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--border);
+  transition: border-color 0.3s ease;
 }
 
 .project-item:hover {
-  background: rgba(0, 255, 136, 0.08);
-  transform: translateX(5px);
+  border-left-color: var(--accent);
 }
 
 .project-title {
